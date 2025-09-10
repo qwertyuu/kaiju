@@ -26,6 +26,20 @@ To start, make sure you have the [Vulkan SDK](https://vulkan.lunarg.com/sdk/home
 - To build the exe, run `go run build/build.go`
   - Make sure to use the Kaiju Engine Go compiler
 
+## Issues with linking libraries (Windows)
+If you are getting issues linking libraries, for example:
+```sh
+cannot find -lstdc++: No such file or directory
+cannot find -lwinmm: No such file or directory
+cannot find -lole32: No such file or directory
+cannot find -luuid: No such file or directory
+cannot find -lgdi32: No such file or directory
+cannot find -lXInput: No such file or directory
+cannot find -lcomdlg32: No such file or directory
+```
+
+Then you may need to ensure you're using the correct architecture. You can do this by using `GOARCH=amd64`. There have been some reports of the build trying to use `mingw32` instead of `mingw64`, this should resolve that issue.
+
 ## Issues with SoLoud audio library linking?
 If you are having trouble linking with the soloud library (`libs/libsoloud_*.a`), then you'll need to rebuild the library files to link against. It is likely that you're using a different compiler than the original (and it's a C++ library). Below are the instructions on how to build the library. Once built, copy the library `.a` file into the `libs/` folder and overwrite the existing ones.
 
